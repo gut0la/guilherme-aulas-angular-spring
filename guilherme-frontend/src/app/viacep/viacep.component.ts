@@ -6,10 +6,24 @@ import {ViaCepResponse} from '../models/via-cep.model';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {catchError} from 'rxjs';
 
+// ISSO É UM COMPONENTE STANDALONE
+// SERVE PARA CRIAR COMPONENTES QUE NÃO DEPENDEM DE MÓDULOS
+// PODEM SER USADOS EM QUALQUER LUGAR DA APLICAÇÃO
 @Component({
+  // O SELETOR SERVE PARA USAR O COMPONENTE EM OUTROS LUGARES
+  // EXEMPLO: <app-viacep></app-viacep>
   selector: 'app-viacep',
+  // Indica que o componente é standalone
+  // Isso significa que ele não depende de um módulo pai
+  // E pode ser usado em qualquer lugar da aplicação
+  // IMPORTANTE: É NECESSÁRIO IMPORTAR OS MÓDULOS QUE O COMPONENTE USA
+  // EXEMPLO: CommonModule, FormsModule, etc.
   standalone: true,
+  // Os módulos que o componente usa
+  // CONSEGUIR USAR NG MODEL, POR EXEMPLO, PRECISA IMPORTAR FormsModule
   imports: [CommonModule, FormsModule],
+  // O template do componente
+  // O HTML KK QUE FICA DENTRO DO COMPONENTE
   template: `
     <div class="container">
       <h2>Consulta CEP</h2>
@@ -22,10 +36,12 @@ import {catchError} from 'rxjs';
           placeholder="Digite o CEP (ex: 01001000)"
           maxlength="8"
           class="form-control">
+        <!--   MÉTODOS.      -->
         <button (click)="buscarCep()" [disabled]="!cep || cep.length !== 8" class="btn">
           Buscar
         </button>
       </div>
+<!--      NG IF SERVE PARA MOSTRAR OU ESCONDER ELEMENTOS NO TEMPLATE-->
       <div *ngIf="loading" class="loading">Carregando...</div>
       <div *ngIf="endereco" class="result">
         <h3>Endereço encontrado:</h3>
@@ -50,6 +66,8 @@ import {catchError} from 'rxjs';
       </div>
     </div>
   `,
+  /// O CSS do componente
+  // O ESTILO KK QUE FICA DENTRO DO COMPONENTE
   styles: [`
     .container { max-width: 500px; margin: 20px auto; padding: 20px; }
     .form-group { margin-bottom: 20px; }
@@ -61,33 +79,64 @@ import {catchError} from 'rxjs';
     .loading { color: #007bff; margin-top: 10px; }
   `]
 })
+
+// A CLASSE DO COMPONENTE
+// AQUI FICA A LÓGICA DO COMPONENTE
+// EXEMPLO: VARIÁVEIS, MÉTODOS, ETC.
 export class ViacepComponent {
+  // VARIÁVEIS QUE O COMPONENTE USA
+  // ESSAS VARIÁVEIS SÃO USADAS NO TEMPLATE
+  // EXEMPLO: [(ngModel)]="cep" USA A VARIÁVEL CEP
   public cep = '';
   public endereco: ViaCepResponse | null = null;
   public erro = '';
   public loading = false;
 
+  // O CONSTRUTOR DO COMPONENTE
+  // AQUI SÃO INJETADOS OS SERVIÇOS QUE O COMPONENTE USA
+  // EXEMPLO: ViacepService, MatSnackBar, ETC.
   constructor(
     private readonly viacepService: ViacepService,
     private readonly snackBar: MatSnackBar
   ) {}
 
+  // MÉTODO QUE O COMPONENTE USA
+  // ESSE MÉTODO É CHAMADO QUANDO O USUÁRIO CLICA NO BOTÃO "BUSCAR"
+  // EXEMPLO: (click)="buscarCep()" CHAMA ESSE MÉTODO
   public buscarCep() {
+    // VALIDAÇÃO SIMPLES DO CEP
+    // SE O CEP ESTIVER VAZIO OU COM TAMANHO DIFERENTE DE 8, NÃO FAZ NADA
     if (!this.cep || this.cep.length !== 8)
       return;
 
+    // INICIA A BUSCA DO CEP
     this.loading = true;
+
+    // RESETA AS VARIÁVEIS DE ERRO E ENDEREÇO
     this.erro = '';
+
     this.endereco = null;
 
+    // CHAMA O SERVIÇO PARA BUSCAR O CEP
+    // O SERVIÇO RETORNA UM OBSERVABLE, ENTÃO É NECESSÁRIO DAR UM SUBSCRIBE
     this.viacepService.buscarCep(this.cep).pipe().subscribe(res => {
+      // QUANDO A RESPOSTA CHEGA, PARA O LOADING
+      // E TRATA A RESPOSTA
+      // SE TIVER ERRO, MOSTRA A MENSAGEM DE ERRO
       this.loading = false;
+      // TRATA A RESPOSTA
+      // SE TIVER ERRO, MOSTRA A MENSAGEM DE ERRO
       if ((res as any).erro) {
+        // SE O CEP NÃO FOR ENCONTRADO, MOSTRA A MENSAGEM DE ERRO
         this.erro = 'CEP não encontrado.';
+        // MOSTRA A MENSAGEM DE ERRO USANDO O SNACKBAR
         this.snackBar.open(this.erro, 'Fechar', {duration: 3000});
       } else {
+        // SE TIVER SUCESSO, ATRIBUI A RESPOSTA À VARIÁVEL ENDEREÇO
         this.endereco = res;
       }
+      // CATCHERROR SERVE PARA TRATAR ERROS DE REDE, ETC.
+      // SE DER ALGUM ERRO, MOSTRA A MENSAGEM DE ERRO
       catchError(
         err => {
           this.loading = false;

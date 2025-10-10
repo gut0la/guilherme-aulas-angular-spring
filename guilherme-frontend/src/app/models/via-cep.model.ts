@@ -1,3 +1,4 @@
+// A INTERFACE SERVE PARA TIPAR OBJETOS KKKKKKKKK
 export interface ViaCepResponse {
   cep: string;
   logradouro: string;
