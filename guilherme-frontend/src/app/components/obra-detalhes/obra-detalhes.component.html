@@ -1,0 +1,48 @@
+<div class="detalhes-container" *ngIf="obra">
+  <mat-card class="obra-card">
+    <mat-card-header>
+      <mat-card-title>{{ obra.titulo }}</mat-card-title>
+      <mat-card-subtitle>{{ obra.tipo }} - {{ obra.anoLancamento }}</mat-card-subtitle>
+    </mat-card-header>
+    
+    <mat-card-content>
+      <p>{{ obra.descricao }}</p>
+      
+      <div class="generos">
+        <strong>Gêneros:</strong>
+        <span *ngFor="let genero of obra.generos" class="genero-tag">
+          {{ genero.nome }}
+        </span>
+      </div>
+      
+      <div *ngIf="obra.notaMedia" class="nota">
+        <strong>Nota Média: {{ obra.notaMedia }}/10</strong>
+      </div>
+    </mat-card-content>
+    
+    <mat-card-actions>
+      <button mat-raised-button color="primary">Avaliar</button>
+      <button mat-button>Adicionar aos Favoritos</button>
+    </mat-card-actions>
+  </mat-card>
+  
+  <div class="avaliacoes-section">
+    <h2>Avaliações</h2>
+    
+    <mat-card *ngFor="let avaliacao of avaliacoes" class="avaliacao-card">
+      <mat-card-header>
+        <mat-card-title>{{ avaliacao.usuario.nome }}</mat-card-title>
+        <mat-card-subtitle>Nota: {{ avaliacao.nota }}/10</mat-card-subtitle>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <p>{{ avaliacao.comentario }}</p>
+        <small>{{ avaliacao.dataAvaliacao | date:'dd/MM/yyyy' }}</small>
+      </mat-card-content>
+    </mat-card>
+    
+    <div *ngIf="avaliacoes.length === 0" class="no-avaliacoes">
+      <p>Nenhuma avaliação encontrada.</p>
+    </div>
+  </div>
+</div>

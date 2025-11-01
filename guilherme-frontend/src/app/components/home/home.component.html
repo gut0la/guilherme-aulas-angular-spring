@@ -1,0 +1,28 @@
+<div class="home-container">
+  <h1>Obras Audiovisuais</h1>
+  
+  <div class="obras-grid">
+    <mat-card *ngFor="let obra of obras" class="obra-card">
+      <mat-card-header>
+        <mat-card-title>{{ obra.titulo }}</mat-card-title>
+        <mat-card-subtitle>{{ obra.tipo }} - {{ obra.anoLancamento }}</mat-card-subtitle>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <p>{{ obra.descricao }}</p>
+        <div class="generos">
+          <span *ngFor="let genero of obra.generos" class="genero-tag">
+            {{ genero.nome }}
+          </span>
+        </div>
+        <div *ngIf="obra.notaMedia" class="nota">
+          Nota: {{ obra.notaMedia }}/10
+        </div>
+      </mat-card-content>
+      
+      <mat-card-actions>
+        <button mat-button [routerLink]="['/obra', obra.id]">Ver Detalhes</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+.home-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.obras-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.obra-card {
+  height: fit-content;
+}
+
+.generos {
+  margin: 10px 0;
+}
+
+.genero-tag {
+  background-color: #e0e0e0;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  margin-right: 5px;
+}
+
+.nota {
+  font-weight: bold;
+  color: #4caf50;
+}
