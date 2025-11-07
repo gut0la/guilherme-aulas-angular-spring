@@ -6,7 +6,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
-import { UsuarioService } from '../../services/usuario.service';
+import { AuthService } from '../../services/auth.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-cadastro',
@@ -20,8 +21,9 @@ export class CadastroComponent {
   senha = '';
 
   constructor(
-    private usuarioService: UsuarioService,
-    private router: Router
+    private authService: AuthService,
+    private router: Router,
+    private readonly snackBar: MatSnackBar
   ) {}
 
   cadastrar() {
@@ -31,14 +33,18 @@ export class CadastroComponent {
       senha: this.senha
     };
 
-    this.usuarioService.cadastrar(usuario).subscribe({
+    this.authService.cadastrar(usuario).subscribe({
       next: () => {
-        alert('Usuário cadastrado com sucesso!');
+        this.snackBar.open('Usuário cadastrado com sucesso!', 'Fechar', {
+          duration: 3000,
+        });
         this.router.navigate(['/login']);
       },
       error: (error) => {
         console.error('Erro no cadastro:', error);
-        alert('Erro ao cadastrar usuário');
+        this.snackBar.open('Erro no cadastro. Por favor, tente novamente.', 'Fechar', {
+          duration: 3000,
+        });
       }
     });
   }

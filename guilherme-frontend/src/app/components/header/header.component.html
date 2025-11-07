@@ -1,20 +1,12 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" *ngIf="isLoggedIn$ | async">
   <span routerLink="/" class="logo">Sistema de Avaliação</span>
   
   <span class="spacer"></span>
   
   <div class="nav-buttons">
     <button mat-button routerLink="/">Home</button>
-    
-    <ng-container *ngIf="!isLoggedIn">
-      <button mat-button routerLink="/login">Login</button>
-      <button mat-button routerLink="/cadastro">Cadastro</button>
-    </ng-container>
-    
-    <ng-container *ngIf="isLoggedIn">
-      <button mat-button routerLink="/minhas-avaliacoes">Minhas Avaliações</button>
-      <button mat-button routerLink="/favoritos">Favoritos</button>
-      <button mat-button (click)="logout()">Logout</button>
-    </ng-container>
+    <button mat-button routerLink="/minhas-avaliacoes">Minhas Avaliações</button>
+    <button mat-button routerLink="/favoritos">Favoritos</button>
+    <button mat-button (click)="logout()">Logout</button>
   </div>
 </mat-toolbar>

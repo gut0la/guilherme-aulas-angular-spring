@@ -6,7 +6,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
-import { UsuarioService } from '../../services/usuario.service';
+import { AuthService } from '../../services/auth.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -19,19 +20,21 @@ export class LoginComponent {
   senha = '';
 
   constructor(
-    private usuarioService: UsuarioService,
-    private router: Router
+    private authService: AuthService,
+    private router: Router,
+    private readonly snackBar: MatSnackBar
   ) {}
 
   login() {
-    this.usuarioService.login(this.email, this.senha).subscribe({
-      next: (response) => {
-        localStorage.setItem('token', response.token);
-        this.router.navigate(['/']);
+    this.authService.login(this.email, this.senha).subscribe({
+      next: () => {
+        this.router.navigate(['/']).then(r => r);
       },
       error: (error) => {
         console.error('Erro no login:', error);
-        alert('Credenciais inválidas');
+        this.snackBar.open('Erro no login. Por favor, tente novamente.', 'Fechar', {
+          duration: 3000,
+        });
       }
     });
   }
