@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 export class AuthService {
   private apiUrl = 'http://localhost:8080/auth';
   private isLoggedInSubject = new BehaviorSubject<boolean>(this.hasToken());
-  
+
   constructor(private http: HttpClient, private router: Router) {}
 
   login(email: string, senha: string): Observable<any> {
@@ -27,11 +27,11 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/cadastro`, usuario);
   }
 
-  logout(): void {
+  public async logout(): Promise<void> {
     localStorage.removeItem('token');
     localStorage.removeItem('usuario');
     this.isLoggedInSubject.next(false);
-    this.router.navigate(['/login']);
+    await this.router.navigate(['/login']);
   }
 
   isLoggedIn(): Observable<boolean> {

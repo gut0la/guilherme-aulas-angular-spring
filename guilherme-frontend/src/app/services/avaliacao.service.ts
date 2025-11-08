@@ -16,4 +16,8 @@ export class AvaliacaoService {
   criar(avaliacao: Avaliacao): Observable<Avaliacao> {
     return this.http.post<Avaliacao>(this.apiUrl, avaliacao);
   }
+
+  listarMinhasAvaliacoes(): Observable<Avaliacao[]> {
+    return this.http.get<Avaliacao[]>(`${this.apiUrl}/minhas`);
+  }
 }

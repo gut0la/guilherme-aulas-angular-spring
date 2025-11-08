@@ -20,4 +20,8 @@ export class ObraService {
   salvar(obra: Obra): Observable<Obra> {
     return this.http.post<Obra>(this.apiUrl, obra);
   }
+
+  listarFavoritos(): Observable<Obra[]> {
+    return this.http.get<Obra[]>(`${this.apiUrl}/favoritos`);
+  }
 }

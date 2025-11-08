@@ -1,11 +1,8 @@
-<div class="home-container">
-  <header class="page-header">
-    <h1>Catálogo de Obras</h1>
-    <p class="subtitle">Descubra filmes e séries incríveis</p>
-  </header>
+<div class="favoritos-container">
+  <h1>Meus Favoritos</h1>
   
-  <div class="obras-grid" *ngIf="obras.length > 0; else noObras">
-    <mat-card *ngFor="let obra of obras" class="obra-card" [routerLink]="['/obra', obra.id]">
+  <div class="obras-grid" *ngIf="favoritos.length > 0; else noFavoritos">
+    <mat-card *ngFor="let obra of favoritos" class="obra-card" [routerLink]="['/obra', obra.id]">
       <div class="card-image">
         <div class="tipo-badge">{{ obra.tipo }}</div>
         <div class="ano-badge">{{ obra.anoLancamento }}</div>
@@ -31,10 +28,11 @@
     </mat-card>
   </div>
   
-  <ng-template #noObras>
+  <ng-template #noFavoritos>
     <div class="empty-state">
-      <h2>Nenhuma obra encontrada</h2>
-      <p>O catálogo está vazio no momento.</p>
+      <h2>Você ainda não tem favoritos</h2>
+      <p>Explore o catálogo e marque suas obras favoritas</p>
+      <button mat-raised-button color="primary" routerLink="/home">Explorar Obras</button>
     </div>
   </ng-template>
 </div>
