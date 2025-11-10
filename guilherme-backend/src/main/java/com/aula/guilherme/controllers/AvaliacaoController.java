@@ -19,7 +19,12 @@ public class AvaliacaoController {
     public List<Avaliacao> listarPorObra(@PathVariable Long obraId) {
         return avaliacaoRepository.findByObraId(obraId);
     }
-    
+
+    @GetMapping("/minhas")
+    public List<Avaliacao> listarMinhasAvaliacoes() {
+        return avaliacaoRepository.findByUsuarioId(1L);
+    }
+
     @PostMapping
     public Avaliacao criar(@RequestBody Avaliacao avaliacao) {
         return avaliacaoRepository.save(avaliacao);

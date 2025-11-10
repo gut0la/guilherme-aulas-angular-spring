@@ -10,6 +10,8 @@ import java.util.List;
 @Repository
 public interface AvaliacaoRepository extends JpaRepository<Avaliacao, Long> {
     List<Avaliacao> findByObraId(Long obraId);
+
+    List<Avaliacao> findByUsuarioId(Long usuarioId);
     
     @Query("SELECT AVG(a.nota) FROM Avaliacao a WHERE a.obra.id = :obraId")
     Double findMediaNotaByObraId(Long obraId);

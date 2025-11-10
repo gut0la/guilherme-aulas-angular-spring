@@ -11,4 +11,5 @@ import java.util.List;
 public interface ObraRepository extends JpaRepository<Obra, Long> {
     @Query("SELECT o FROM Obra o LEFT JOIN FETCH o.generos")
     List<Obra> findAllWithGeneros();
+
 }
