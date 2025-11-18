@@ -25,7 +25,21 @@ public class UsuarioService implements UserDetailsService {
     }
     
     public Usuario salvar(Usuario usuario) {
+        // Verificar se o email já existe
+        if (usuarioRepository.findByEmail(usuario.getEmail()).isPresent()) {
+            throw new IllegalArgumentException("Email já está em uso");
+        }
+        
+        // Validar formato do email
+        if (!isValidEmail(usuario.getEmail())) {
+            throw new IllegalArgumentException("Formato de email inválido");
+        }
+        
         usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
         return usuarioRepository.save(usuario);
+    }
+    
+    private boolean isValidEmail(String email) {
+        return email != null && email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$");
     }
 }

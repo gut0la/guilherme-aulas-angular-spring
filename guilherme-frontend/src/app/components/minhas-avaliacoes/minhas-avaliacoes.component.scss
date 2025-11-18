@@ -1,43 +1,220 @@
 .avaliacoes-container {
   padding: 24px;
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
+  min-height: calc(100vh - 64px);
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
 }
 
-.avaliacoes-list {
+.page-header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 40px 0;
+  
+  h1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    font-size: 2.5rem;
+    margin-bottom: 12px;
+    color: #2c3e50;
+    font-weight: 700;
+    
+    mat-icon {
+      font-size: 2.5rem;
+      width: 2.5rem;
+      height: 2.5rem;
+      color: #3498db;
+    }
+  }
+  
+  .subtitle {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+    margin: 0;
+  }
+}
+
+.loading-container {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 0;
+  
+  p {
+    margin-top: 16px;
+    color: #666;
+    font-size: 1.1rem;
+  }
+}
+
+.avaliacoes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 24px;
+  padding-bottom: 40px;
 }
 
 .avaliacao-card {
-  h3 {
-    margin: 0 0 8px 0;
-    color: #333;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  background: white;
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
   }
   
-  .nota {
+  mat-card-content {
+    padding: 24px !important;
+  }
+}
+
+.avaliacao-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stars {
+  display: flex;
+  gap: 2px;
+  
+  .star {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    color: #ffd700;
+  }
+}
+
+.nota {
+  font-weight: 600;
+  color: #f39c12;
+  font-size: 0.9rem;
+}
+
+.data {
+  color: #7f8c8d;
+  font-size: 0.85rem;
+}
+
+.obra-info {
+  margin-bottom: 16px;
+  
+  .obra-titulo {
+    font-size: 1.2rem;
     font-weight: 600;
-    color: #ff9800;
-    margin-bottom: 8px;
+    margin: 0 0 4px 0;
+    color: #2c3e50;
   }
   
-  p {
-    margin: 8px 0;
-    color: #666;
+  .obra-autor {
+    color: #7f8c8d;
+    margin: 0;
+    font-size: 0.9rem;
   }
+}
+
+.comentario {
+  color: #5a6c7d;
+  line-height: 1.5;
+  margin: 0 0 16px 0;
+  font-style: italic;
+  background: #f8f9fa;
+  padding: 12px;
+  border-radius: 8px;
+  border-left: 4px solid #3498db;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 12px;
+  border-top: 1px solid #ecf0f1;
+}
+
+.ver-obra {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #3498db;
+  font-size: 0.9rem;
+  font-weight: 500;
   
-  small {
-    color: #999;
+  mat-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
   }
 }
 
 .empty-state {
   text-align: center;
-  padding: 64px 24px;
+  padding: 80px 24px;
+  color: #7f8c8d;
+  
+  .empty-icon {
+    font-size: 64px;
+    width: 64px;
+    height: 64px;
+    margin-bottom: 24px;
+    color: #bdc3c7;
+  }
   
   h2 {
-    margin-bottom: 16px;
-    color: #666;
+    margin-bottom: 12px;
+    color: #5a6c7d;
+    font-size: 1.5rem;
+  }
+  
+  p {
+    margin-bottom: 24px;
+    font-size: 1.1rem;
+  }
+  
+  button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 auto;
+    height: 44px;
+    padding: 0 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .avaliacoes-container {
+    padding: 16px;
+  }
+  
+  .page-header {
+    padding: 20px 0;
+    
+    h1 {
+      font-size: 2rem;
+      
+      mat-icon {
+        font-size: 2rem;
+        width: 2rem;
+        height: 2rem;
+      }
+    }
+  }
+  
+  .avaliacoes-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
   }
 }

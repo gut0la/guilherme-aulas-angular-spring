@@ -1,7 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Avaliacao } from '../models/avaliacao.model';
+import { Obra } from './obra.service';
+
+export interface Avaliacao {
+  id?: number;
+  nota: number;
+  comentario: string;
+  obraId: number;
+  usuarioId: number;
+  dataAvaliacao?: string;
+  obra?: Obra;
+}
 
 @Injectable({ providedIn: 'root' })
 export class AvaliacaoService {
@@ -9,15 +19,27 @@ export class AvaliacaoService {
 
   constructor(private http: HttpClient) {}
 
-  listarPorObra(idObra: number): Observable<Avaliacao[]> {
-    return this.http.get<Avaliacao[]>(`${this.apiUrl}/obra/${idObra}`);
+  listarPorObra(obraId: number): Observable<Avaliacao[]> {
+    return this.http.get<Avaliacao[]>(`${this.apiUrl}/obra/${obraId}`);
+  }
+
+  listarPorUsuario(usuarioId: number): Observable<Avaliacao[]> {
+    return this.http.get<Avaliacao[]>(`${this.apiUrl}/usuario/${usuarioId}`);
+  }
+
+  listarMinhasAvaliacoes(): Observable<Avaliacao[]> {
+    return this.http.get<Avaliacao[]>(`${this.apiUrl}/minhas`);
   }
 
   criar(avaliacao: Avaliacao): Observable<Avaliacao> {
     return this.http.post<Avaliacao>(this.apiUrl, avaliacao);
   }
 
-  listarMinhasAvaliacoes(): Observable<Avaliacao[]> {
-    return this.http.get<Avaliacao[]>(`${this.apiUrl}/minhas`);
+  atualizar(id: number, avaliacao: Avaliacao): Observable<Avaliacao> {
+    return this.http.put<Avaliacao>(`${this.apiUrl}/${id}`, avaliacao);
+  }
+
+  deletar(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }

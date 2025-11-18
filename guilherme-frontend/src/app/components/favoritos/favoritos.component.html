@@ -1,38 +1,64 @@
 <div class="favoritos-container">
-  <h1>Meus Favoritos</h1>
-  
-  <div class="obras-grid" *ngIf="favoritos.length > 0; else noFavoritos">
-    <mat-card *ngFor="let obra of favoritos" class="obra-card" [routerLink]="['/obra', obra.id]">
+  <header class="page-header">
+    <h1>
+      <mat-icon>favorite</mat-icon>
+      Meus Favoritos
+    </h1>
+    <p class="subtitle">Suas obras preferidas</p>
+  </header>
+
+  <div class="loading-container" *ngIf="loading">
+    <mat-spinner diameter="50"></mat-spinner>
+    <p>Carregando seus favoritos...</p>
+  </div>
+
+  <div class="favoritos-grid" *ngIf="!loading && favoritos.length > 0">
+    <mat-card *ngFor="let obra of favoritos" class="favorito-card">
       <div class="card-image">
-        <div class="tipo-badge">{{ obra.tipo }}</div>
-        <div class="ano-badge">{{ obra.anoLancamento }}</div>
+        <mat-icon class="tipo-icon">{{ getTipoIcon(obra.tipo) }}</mat-icon>
+        <div class="overlay">
+          <button mat-icon-button class="remove-btn" (click)="removerFavorito(obra)" [attr.aria-label]="'Remover dos favoritos'">
+            <mat-icon>favorite</mat-icon>
+          </button>
+          <span class="tipo-badge">{{ obra.tipo }}</span>
+          <span class="ano-badge">{{ obra.anoPublicacao }}</span>
+        </div>
       </div>
       
       <mat-card-content>
         <h3 class="obra-titulo">{{ obra.titulo }}</h3>
-        <p class="obra-descricao">{{ obra.descricao | slice:0:100 }}{{ obra.descricao.length > 100 ? '...' : '' }}</p>
+        <p class="obra-autor">
+          <mat-icon class="info-icon">person</mat-icon>
+          {{ obra.autor }}
+        </p>
         
-        <div class="generos" *ngIf="obra.generos?.length">
-          <span *ngFor="let genero of obra.generos | slice:0:3" class="genero-tag">
-            {{ genero.nome }}
-          </span>
+        <div class="generos" *ngIf="obra.generos && obra.generos.length > 0">
+          <mat-chip-set>
+            <mat-chip *ngFor="let genero of obra.generos">{{ genero.nome }}</mat-chip>
+          </mat-chip-set>
         </div>
         
         <div class="card-footer">
-          <div class="nota" *ngIf="obra.notaMedia">
-            ⭐ {{ obra.notaMedia }}/10
+          <div class="rating" *ngIf="obra.notaMedia">
+            <mat-icon class="star-icon">star</mat-icon>
+            <span class="nota">{{ obra.notaMedia | number:'1.1-1' }}</span>
           </div>
-          <span class="ver-mais">Ver detalhes →</span>
+          <button mat-button color="primary" (click)="verDetalhes(obra.id!)">
+            Ver detalhes
+            <mat-icon>arrow_forward</mat-icon>
+          </button>
         </div>
       </mat-card-content>
     </mat-card>
   </div>
-  
-  <ng-template #noFavoritos>
-    <div class="empty-state">
-      <h2>Você ainda não tem favoritos</h2>
-      <p>Explore o catálogo e marque suas obras favoritas</p>
-      <button mat-raised-button color="primary" routerLink="/home">Explorar Obras</button>
-    </div>
-  </ng-template>
+
+  <div class="empty-state" *ngIf="!loading && favoritos.length === 0">
+    <mat-icon class="empty-icon">favorite_border</mat-icon>
+    <h2>Nenhum favorito ainda</h2>
+    <p>Adicione obras aos seus favoritos para vê-las aqui!</p>
+    <button mat-raised-button color="primary" routerLink="/home">
+      <mat-icon>explore</mat-icon>
+      Explorar Obras
+    </button>
+  </div>
 </div>

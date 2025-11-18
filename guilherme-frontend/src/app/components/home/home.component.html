@@ -1,40 +1,56 @@
 <div class="home-container">
   <header class="page-header">
     <h1>Catálogo de Obras</h1>
-    <p class="subtitle">Descubra filmes e séries incríveis</p>
+    <p class="subtitle">Descubra e avalie obras incríveis</p>
   </header>
   
-  <div class="obras-grid" *ngIf="obras.length > 0; else noObras">
-    <mat-card *ngFor="let obra of obras" class="obra-card" [routerLink]="['/obra', obra.id]">
+  <div class="loading-container" *ngIf="loading">
+    <mat-spinner diameter="50"></mat-spinner>
+    <p>Carregando obras...</p>
+  </div>
+  
+  <div class="obras-grid" *ngIf="!loading && obras.length > 0">
+    <mat-card *ngFor="let obra of obras" class="obra-card" (click)="verDetalhes(obra.id!)">
       <div class="card-image">
-        <div class="tipo-badge">{{ obra.tipo }}</div>
-        <div class="ano-badge">{{ obra.anoLancamento }}</div>
+        <mat-icon class="tipo-icon">{{ getTipoIcon(obra.tipo) }}</mat-icon>
+        <div class="overlay">
+          <span class="tipo-badge">{{ obra.tipo }}</span>
+          <span class="ano-badge">{{ obra.anoPublicacao }}</span>
+        </div>
       </div>
       
       <mat-card-content>
         <h3 class="obra-titulo">{{ obra.titulo }}</h3>
-        <p class="obra-descricao">{{ obra.descricao | slice:0:100 }}{{ obra.descricao.length > 100 ? '...' : '' }}</p>
+        <p class="obra-autor">
+          <mat-icon class="info-icon">person</mat-icon>
+          {{ obra.autor }}
+        </p>
         
-        <div class="generos" *ngIf="obra.generos?.length">
-          <span *ngFor="let genero of obra.generos | slice:0:3" class="genero-tag">
-            {{ genero.nome }}
-          </span>
+        <div class="generos" *ngIf="obra.generos && obra.generos.length > 0">
+          <mat-chip-set>
+            <mat-chip *ngFor="let genero of obra.generos">{{ genero.nome }}</mat-chip>
+          </mat-chip-set>
         </div>
         
+        <p class="obra-descricao">{{ obra.descricao | slice:0:120 }}{{ obra.descricao && obra.descricao.length > 120 ? '...' : '' }}</p>
+        
         <div class="card-footer">
-          <div class="nota" *ngIf="obra.notaMedia">
-            ⭐ {{ obra.notaMedia }}/10
+          <div class="rating" *ngIf="obra.notaMedia">
+            <mat-icon class="star-icon">star</mat-icon>
+            <span class="nota">{{ obra.notaMedia | number:'1.1-1' }}</span>
           </div>
-          <span class="ver-mais">Ver detalhes →</span>
+          <span class="ver-mais">
+            Ver detalhes
+            <mat-icon>arrow_forward</mat-icon>
+          </span>
         </div>
       </mat-card-content>
     </mat-card>
   </div>
   
-  <ng-template #noObras>
-    <div class="empty-state">
-      <h2>Nenhuma obra encontrada</h2>
-      <p>O catálogo está vazio no momento.</p>
-    </div>
-  </ng-template>
+  <div class="empty-state" *ngIf="!loading && obras.length === 0">
+    <mat-icon class="empty-icon">library_books</mat-icon>
+    <h2>Nenhuma obra encontrada</h2>
+    <p>O catálogo está vazio no momento.</p>
+  </div>
 </div>

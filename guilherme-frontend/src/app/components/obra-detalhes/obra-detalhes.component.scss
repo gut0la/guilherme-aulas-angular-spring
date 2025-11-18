@@ -1,40 +1,361 @@
 .detalhes-container {
-  padding: 20px;
-  max-width: 800px;
+  padding: 24px;
+  max-width: 1000px;
   margin: 0 auto;
+  min-height: calc(100vh - 64px);
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 0;
+  
+  p {
+    margin-top: 16px;
+    color: #666;
+    font-size: 1.1rem;
+  }
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+  
+  .back-btn {
+    margin-right: 16px;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  
+  h1 {
+    margin: 0;
+    color: #2c3e50;
+    font-size: 1.8rem;
+    font-weight: 600;
+  }
 }
 
 .obra-card {
-  margin-bottom: 30px;
+  margin-bottom: 24px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  overflow: hidden;
+}
+
+.obra-header {
+  display: flex;
+  gap: 24px;
+  padding: 24px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.obra-image {
+  position: relative;
+  width: 200px;
+  height: 280px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+  
+  .tipo-icon {
+    font-size: 64px;
+    width: 64px;
+    height: 64px;
+    color: rgba(255,255,255,0.9);
+  }
+  
+  .badges {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    right: 12px;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.tipo-badge, .ano-badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: rgba(255,255,255,0.95);
+  color: #333;
+  backdrop-filter: blur(10px);
+}
+
+.obra-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+}
+
+.obra-titulo {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.obra-autor {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.1rem;
+  opacity: 0.9;
+  margin: 0;
+  
+  mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+  }
 }
 
 .generos {
-  margin: 15px 0;
+  mat-chip-set {
+    mat-chip {
+      background: rgba(255,255,255,0.2);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+  }
 }
 
-.genero-tag {
-  background-color: #e0e0e0;
-  padding: 4px 8px;
-  border-radius: 12px;
-  font-size: 12px;
-  margin-left: 5px;
+.rating-display {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
-.nota {
-  margin: 15px 0;
-  color: #4caf50;
+.stars {
+  display: flex;
+  gap: 2px;
+  
+  .star {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    color: #ffd700;
+  }
+}
+
+.nota-media {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+mat-card-content {
+  padding: 24px !important;
+  
+  h3 {
+    color: #2c3e50;
+    margin: 0 0 16px 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
+}
+
+.obra-descricao {
+  color: #5a6c7d;
+  line-height: 1.6;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.nova-avaliacao {
+  margin-bottom: 24px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  
+  mat-card-header {
+    mat-card-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #2c3e50;
+      
+      mat-icon {
+        color: #3498db;
+      }
+    }
+  }
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.nota-field {
+  width: 150px;
+}
+
+.stars-preview {
+  display: flex;
+  gap: 2px;
+  
+  .star {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+    color: #ffd700;
+  }
+}
+
+.full-width {
+  width: 100%;
+}
+
+mat-card-actions {
+  padding: 16px 24px !important;
+  
+  button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 44px;
+    
+    .spinner {
+      margin-right: 8px;
+    }
+  }
 }
 
 .avaliacoes-section {
-  margin-top: 30px;
+  h2 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #2c3e50;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    
+    mat-icon {
+      color: #3498db;
+    }
+  }
 }
 
 .avaliacao-card {
-  margin-bottom: 15px;
+  margin-bottom: 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  
+  mat-card-content {
+    padding: 20px !important;
+  }
+}
+
+.avaliacao-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  
+  .user-icon {
+    color: #7f8c8d;
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+  }
+  
+  .user-name {
+    font-weight: 500;
+    color: #2c3e50;
+  }
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  
+  .nota {
+    font-weight: 600;
+    color: #f39c12;
+  }
+}
+
+.comentario {
+  color: #5a6c7d;
+  line-height: 1.5;
+  margin: 0;
+  font-style: italic;
 }
 
 .no-avaliacoes {
   text-align: center;
-  color: #666;
-  font-style: italic;
+  padding: 60px 20px;
+  color: #7f8c8d;
+  
+  .empty-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 16px;
+    color: #bdc3c7;
+  }
+  
+  h3 {
+    margin: 0 0 8px 0;
+    color: #5a6c7d;
+  }
+  
+  p {
+    margin: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .detalhes-container {
+    padding: 16px;
+  }
+  
+  .obra-header {
+    flex-direction: column;
+    text-align: center;
+    
+    .obra-image {
+      width: 150px;
+      height: 200px;
+      margin: 0 auto;
+    }
+  }
+  
+  .obra-titulo {
+    font-size: 1.8rem;
+  }
+  
+  .form-row {
+    flex-direction: column;
+    align-items: stretch;
+    
+    .nota-field {
+      width: 100%;
+    }
+    
+    .stars-preview {
+      justify-content: center;
+    }
+  }
 }

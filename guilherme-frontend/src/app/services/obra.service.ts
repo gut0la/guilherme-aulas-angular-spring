@@ -1,7 +1,23 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Obra } from '../models/obra.model';
+
+export interface Genero {
+  id?: number;
+  nome: string;
+}
+
+export interface Obra {
+  id?: number;
+  titulo: string;
+  autor: string;
+  genero?: string;
+  generos?: Genero[];
+  anoPublicacao: number;
+  descricao: string;
+  tipo?: string;
+  notaMedia?: number;
+}
 
 @Injectable({ providedIn: 'root' })
 export class ObraService {
@@ -9,7 +25,7 @@ export class ObraService {
 
   constructor(private http: HttpClient) {}
 
-  listar(): Observable<Obra[]> {
+  listarTodas(): Observable<Obra[]> {
     return this.http.get<Obra[]>(this.apiUrl);
   }
 
@@ -21,7 +37,19 @@ export class ObraService {
     return this.http.post<Obra>(this.apiUrl, obra);
   }
 
-  listarFavoritos(): Observable<Obra[]> {
-    return this.http.get<Obra[]>(`${this.apiUrl}/favoritos`);
+  atualizar(id: number, obra: Obra): Observable<Obra> {
+    return this.http.put<Obra>(`${this.apiUrl}/${id}`, obra);
+  }
+
+  deletar(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
+  buscarPorGenero(genero: string): Observable<Obra[]> {
+    return this.http.get<Obra[]>(`${this.apiUrl}/genero/${genero}`);
+  }
+
+  buscarPorTipo(tipo: string): Observable<Obra[]> {
+    return this.http.get<Obra[]>(`${this.apiUrl}/tipo/${tipo}`);
   }
 }

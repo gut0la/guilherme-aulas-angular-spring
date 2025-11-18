@@ -1,23 +1,28 @@
 <div class="login-container">
   <mat-card class="login-card">
     <mat-card-header>
-      <mat-card-title>Login</mat-card-title>
+      <mat-card-title>Bem-vindo</mat-card-title>
+      <mat-card-subtitle>Faça login para continuar</mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content>
-      <form (ngSubmit)="login()">
+      <form (ngSubmit)="login()" #loginForm="ngForm">
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Email</mat-label>
-          <input matInput type="email" [(ngModel)]="email" name="email" required>
+          <input matInput type="email" [(ngModel)]="email" name="email" required #emailInput="ngModel">
+          <mat-error *ngIf="errors.email">{{ errors.email }}</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Senha</mat-label>
-          <input matInput type="password" [(ngModel)]="senha" name="senha" required>
+          <input matInput type="password" [(ngModel)]="senha" name="senha" required #senhaInput="ngModel">
+          <mat-error *ngIf="errors.senha">{{ errors.senha }}</mat-error>
         </mat-form-field>
 
-        <button mat-raised-button color="primary" type="submit" class="full-width">
-          Entrar
+        <button mat-raised-button color="primary" type="submit" class="full-width submit-button" [disabled]="loading">
+          <mat-spinner *ngIf="loading" diameter="20" class="spinner"></mat-spinner>
+          <span *ngIf="!loading">Entrar</span>
+          <span *ngIf="loading">Entrando...</span>
         </button>
       </form>
       

@@ -1,12 +1,27 @@
-<mat-toolbar color="primary" *ngIf="isLoggedIn$ | async">
-  <span routerLink="/home" class="logo">Sistema de Avaliação</span>
+<mat-toolbar color="primary" *ngIf="isLoggedIn$ | async" class="main-toolbar">
+  <button mat-button routerLink="/home" class="logo">
+    <mat-icon>library_books</mat-icon>
+    <span>Sistema de Avaliação</span>
+  </button>
   
   <span class="spacer"></span>
   
   <div class="nav-buttons">
-    <button mat-button routerLink="/home">Home</button>
-    <button mat-button routerLink="/minhas-avaliacoes">Minhas Avaliações</button>
-    <button mat-button routerLink="/favoritos">Favoritos</button>
-    <button mat-button (click)="logout()">Logout</button>
+    <button mat-button routerLink="/home" routerLinkActive="active">
+      <mat-icon>home</mat-icon>
+      <span>Home</span>
+    </button>
+    <button mat-button routerLink="/minhas-avaliacoes" routerLinkActive="active">
+      <mat-icon>rate_review</mat-icon>
+      <span>Minhas Avaliações</span>
+    </button>
+    <button mat-button routerLink="/favoritos" routerLinkActive="active">
+      <mat-icon>favorite</mat-icon>
+      <span>Favoritos</span>
+    </button>
+    <button mat-button (click)="logout()" class="logout-btn">
+      <mat-icon>logout</mat-icon>
+      <span>Sair</span>
+    </button>
   </div>
 </mat-toolbar>
