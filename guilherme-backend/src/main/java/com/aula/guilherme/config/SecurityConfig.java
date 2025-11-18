@@ -53,7 +53,9 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
             .cors(cors -> cors.configurationSource(corsConfigurationSource))
             .authorizeHttpRequests(authz -> authz
-                .requestMatchers("/auth/**", "/obras/**", "/avaliacoes/**").permitAll()
+                .requestMatchers("/auth/**").permitAll()
+                .requestMatchers("/obras/**").permitAll()
+                .requestMatchers("/avaliacoes/**").permitAll()
                 .anyRequest().authenticated()
             )
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

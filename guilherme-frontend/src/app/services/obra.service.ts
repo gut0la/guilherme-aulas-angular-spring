@@ -13,7 +13,8 @@ export interface Obra {
   autor: string;
   genero?: string;
   generos?: Genero[];
-  anoPublicacao: number;
+  anoLancamento: number;
+  anoPublicacao?: number; // Manter compatibilidade
   descricao: string;
   tipo?: string;
   notaMedia?: number;

@@ -47,10 +47,9 @@ export class HomeComponent implements OnInit {
 
   getTipoIcon(tipo: string | undefined): string {
     switch(tipo?.toLowerCase()) {
-      case 'livro': return 'book';
       case 'filme': return 'movie';
       case 'serie': return 'tv';
-      case 'jogo': return 'sports_esports';
+      case 'anime': return 'animation';
       default: return 'library_books';
     }
   }
