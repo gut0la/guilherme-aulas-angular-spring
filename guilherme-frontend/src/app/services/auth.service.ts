@@ -11,7 +11,7 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  login(email: string, senha: string): Observable<any> {
+  public login(email: string, senha: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, { email, senha }).pipe(
       tap((response: any) => {
         if (response.token) {
@@ -23,7 +23,7 @@ export class AuthService {
     );
   }
 
-  cadastrar(usuario: any): Observable<any> {
+  public cadastrar(usuario: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/cadastro`, usuario);
   }
 
@@ -34,15 +34,15 @@ export class AuthService {
     await this.router.navigate(['/login']);
   }
 
-  isLoggedIn(): Observable<boolean> {
+  public isLoggedIn(): Observable<boolean> {
     return this.isLoggedInSubject.asObservable();
   }
 
-  getToken(): string | null {
+  public getToken(): string | null {
     return localStorage.getItem('token');
   }
 
-  getUsuario(): any {
+  public getUsuario(): any {
     const usuario = localStorage.getItem('usuario');
     return usuario ? JSON.parse(usuario) : null;
   }

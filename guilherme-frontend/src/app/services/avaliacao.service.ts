@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Obra } from './obra.service';
+import {AvaliacaoAbstract} from '../abstracts/avaliacao.abstract';
 
 export interface Avaliacao {
   id?: number;
@@ -14,7 +15,7 @@ export interface Avaliacao {
 }
 
 @Injectable({ providedIn: 'root' })
-export class AvaliacaoService {
+export class AvaliacaoService implements AvaliacaoAbstract {
   private apiUrl = 'http://localhost:8080/avaliacoes';
 
   constructor(private http: HttpClient) {}
@@ -23,16 +24,16 @@ export class AvaliacaoService {
     return this.http.get<Avaliacao[]>(`${this.apiUrl}/obra/${obraId}`);
   }
 
-  listarPorUsuario(usuarioId: number): Observable<Avaliacao[]> {
-    return this.http.get<Avaliacao[]>(`${this.apiUrl}/usuario/${usuarioId}`);
-  }
-
   listarMinhasAvaliacoes(): Observable<Avaliacao[]> {
     return this.http.get<Avaliacao[]>(`${this.apiUrl}/minhas`);
   }
 
   criar(avaliacao: Avaliacao): Observable<Avaliacao> {
     return this.http.post<Avaliacao>(this.apiUrl, avaliacao);
+  }
+
+  listarPorUsuario(usuarioId: number): Observable<Avaliacao[]> {
+    return this.http.get<Avaliacao[]>(`${this.apiUrl}/usuario/${usuarioId}`);
   }
 
   atualizar(id: number, avaliacao: Avaliacao): Observable<Avaliacao> {
