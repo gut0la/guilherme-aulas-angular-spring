@@ -1,64 +1,13 @@
 <div class="favoritos-container">
-  <header class="page-header">
-    <h1>
-      <mat-icon>favorite</mat-icon>
-      Meus Favoritos
-    </h1>
-    <p class="subtitle">Suas obras preferidas</p>
-  </header>
-
-  <div class="loading-container" *ngIf="loading">
-    <mat-spinner diameter="50"></mat-spinner>
-    <p>Carregando seus favoritos...</p>
-  </div>
-
-  <div class="favoritos-grid" *ngIf="!loading && favoritos.length > 0">
-    <mat-card *ngFor="let obra of favoritos" class="favorito-card">
-      <div class="card-image">
-        <mat-icon class="tipo-icon">{{ getTipoIcon(obra.tipo) }}</mat-icon>
-        <div class="overlay">
-          <button mat-icon-button class="remove-btn" (click)="removerFavorito(obra)" [attr.aria-label]="'Remover dos favoritos'">
-            <mat-icon>favorite</mat-icon>
-          </button>
-          <span class="tipo-badge">{{ obra.tipo }}</span>
-          <span class="ano-badge">{{ obra.anoLancamento }}</span>
-        </div>
-      </div>
-      
-      <mat-card-content>
-        <h3 class="obra-titulo">{{ obra.titulo }}</h3>
-        <p class="obra-autor">
-          <mat-icon class="info-icon">person</mat-icon>
-          {{ obra.autor }}
-        </p>
-        
-        <div class="generos" *ngIf="obra.generos && obra.generos.length > 0">
-          <mat-chip-set>
-            <mat-chip *ngFor="let genero of obra.generos">{{ genero.nome }}</mat-chip>
-          </mat-chip-set>
-        </div>
-        
-        <div class="card-footer">
-          <div class="rating" *ngIf="obra.notaMedia">
-            <mat-icon class="star-icon">star</mat-icon>
-            <span class="nota">{{ obra.notaMedia | number:'1.1-1' }}</span>
-          </div>
-          <button mat-button color="primary" (click)="verDetalhes(obra.id!)">
-            Ver detalhes
-            <mat-icon>arrow_forward</mat-icon>
-          </button>
-        </div>
-      </mat-card-content>
-    </mat-card>
-  </div>
-
-  <div class="empty-state" *ngIf="!loading && favoritos.length === 0">
-    <mat-icon class="empty-icon">favorite_border</mat-icon>
-    <h2>Nenhum favorito ainda</h2>
-    <p>Adicione obras aos seus favoritos para vê-las aqui!</p>
-    <button mat-raised-button color="primary" routerLink="/home">
-      <mat-icon>explore</mat-icon>
-      Explorar Obras
-    </button>
-  </div>
+  <h1>Meus Favoritos</h1>
+  
+  <ng-template #noFavoritos>
+    <div class="empty-state">
+      <h2>Funcionalidade em desenvolvimento</h2>
+      <p>A funcionalidade de favoritos será implementada em breve</p>
+      <button mat-raised-button color="primary" routerLink="/home">Explorar Obras</button>
+    </div>
+  </ng-template>
+  
+  <ng-container *ngTemplateOutlet="noFavoritos"></ng-container>
 </div>

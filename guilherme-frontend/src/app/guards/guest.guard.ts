@@ -3,7 +3,7 @@ import { CanActivateFn, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { map } from 'rxjs/operators';
 
-export const guestGuard: CanActivateFn = (route, state) => {
+export const guestGuard: CanActivateFn = () => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
@@ -12,7 +12,7 @@ export const guestGuard: CanActivateFn = (route, state) => {
       if (!isLoggedIn) {
         return true;
       } else {
-        router.navigate(['/home']).then(r => r);
+        router.navigate(['/home']);
         return false;
       }
     })

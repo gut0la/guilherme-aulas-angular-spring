@@ -1,54 +1,20 @@
 <div class="avaliacoes-container">
-  <header class="page-header">
-    <h1>
-      <mat-icon>rate_review</mat-icon>
-      Minhas Avaliações
-    </h1>
-    <p class="subtitle">Suas opiniões sobre as obras</p>
-  </header>
+  <h1>Minhas Avaliações</h1>
 
-  <div class="loading-container" *ngIf="loading">
-    <mat-spinner diameter="50"></mat-spinner>
-    <p>Carregando suas avaliações...</p>
-  </div>
-
-  <div class="avaliacoes-grid" *ngIf="!loading && avaliacoes.length > 0">
-    <mat-card *ngFor="let avaliacao of avaliacoes" class="avaliacao-card" (click)="verObra(avaliacao.obraId)">
+  <div class="avaliacoes-list" *ngIf="avaliacoes.length > 0; else noAvaliacoes">
+    <mat-card *ngFor="let avaliacao of avaliacoes" class="avaliacao-card">
       <mat-card-content>
-        <div class="avaliacao-header">
-          <div class="rating">
-            <div class="stars">
-              <mat-icon *ngFor="let star of getStars(avaliacao.nota)" class="star">{{ star }}</mat-icon>
-            </div>
-            <span class="nota">{{ avaliacao.nota }}/10</span>
-          </div>
-          <span class="data" *ngIf="avaliacao.dataAvaliacao">{{ avaliacao.dataAvaliacao | date:'dd/MM/yyyy' }}</span>
-        </div>
-        
-        <div class="obra-info" *ngIf="avaliacao.obra">
-          <h3 class="obra-titulo">{{ avaliacao.obra.titulo }}</h3>
-          <p class="obra-autor">{{ avaliacao.obra.autor }}</p>
-        </div>
-        
-        <p class="comentario" *ngIf="avaliacao.comentario">"{{ avaliacao.comentario }}"</p>
-        
-        <div class="card-footer">
-          <span class="ver-obra">
-            Ver obra
-            <mat-icon>arrow_forward</mat-icon>
-          </span>
-        </div>
+        <div class="nota">⭐ {{ avaliacao.nota }}/10</div>
+        <p>{{ avaliacao.comentario }}</p>
+        <small>Obra ID: {{ avaliacao.obraId }}</small>
       </mat-card-content>
     </mat-card>
   </div>
 
-  <div class="empty-state" *ngIf="!loading && avaliacoes.length === 0">
-    <mat-icon class="empty-icon">rate_review</mat-icon>
-    <h2>Você ainda não fez nenhuma avaliação</h2>
-    <p>Explore o catálogo e compartilhe suas opiniões!</p>
-    <button mat-raised-button color="primary" routerLink="/home">
-      <mat-icon>explore</mat-icon>
-      Explorar Obras
-    </button>
-  </div>
+  <ng-template #noAvaliacoes>
+    <div class="empty-state">
+      <h2>Você ainda não fez nenhuma avaliação</h2>
+      <button mat-raised-button color="primary" routerLink="/home">Explorar Obras</button>
+    </div>
+  </ng-template>
 </div>
